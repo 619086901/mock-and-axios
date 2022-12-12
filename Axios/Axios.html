@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../Axios.js/axios.min.js"></script>
+  </head>
+  <body>
+    <form action="" method="post">
+      <input type="file" name="" id="images" />
+    </form>
+    <script>
+      //这个地址可跨域，可以打开控制台
+      //Network-文件-Headers-Access-Control-Allow-Origin: *
+      //*代表可跨域
+      var imgInput = document.getElementById('images')
+      imgInput.onchange = function () {
+        //1.获取所有选中文件列表
+        var fileList = imgInput.files
+        console.log(fileList[0])
+        let fd = new FormData()
+        fd.append('file', fileList[0])
+        fd.append('family_id', 10061)
+        fd.append('type', 'back')
+        fd.append('idcard', 10061)
+        axios
+          .post('http://nfdev.nbnfsoft.com:15084/microapi/file/upload3', fd, {
+            headers: {
+              'Content-Type':
+                'multipart/form-data;boundary=WebKitFormBoundary7PCqG5iQ5vwLZ6AB',
+              Origin: 'http://nfdev.nbnfsoft.com:15084'
+            }
+          })
+          .then((response) => {
+            return response
+          })
+          .then((response) => {
+            console.log('我是axios', response)
+            console.log('我是axios', response.data)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+      }
+
+      // fetch(url, {
+      //   method: 'GET'
+      // })
+      //   .then((response) => {
+      //     console.log('我是fetch', response)
+      //     return response.json()
+      //   })
+      //   .then((data) => console.log('我是fetch', JSON.stringify(data, '', 2)))
+      //   .catch((error) => {
+      //     console.log(error)
+      //   })
+    </script>
+  </body>
+</html>

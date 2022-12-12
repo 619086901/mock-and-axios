@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../mock.js/mock.js"></script>
+  </head>
+  <body>
+    <script>
+      const obj = {
+        name: 'fan',
+        age: 20,
+        sex: '男'
+      }
+
+      const array = ['1', '2', '3', '4']
+
+      // // 使用 Mock
+      // let data = Mock.mock({
+      //   'list|200': [
+      //     {
+      //       'id|+1': 1,
+      //       'name|1-10': 'ha',
+      //       'flag|1': false,
+      //       'obj|2': obj,
+      //       'array|1': array,
+      //       reg: /^[a-z]$/,
+      //       abc: '@cname',
+      //       riqi: '@date'
+      //     }
+      //   ]
+      // })
+
+      // 使用 Mock
+      let data = Mock.mock({
+        'data|200': [
+          {
+            'id|+1': 1,
+            time: /^[1-2]\.[1-5][1-9]$/,
+            name: '@cname'
+          }
+        ]
+      })
+
+      let Random = Mock.Random
+      console.log(data)
+      //两种方式
+      console.log(Random.date('yyyy-MM-dd'))
+      console.log(Mock.mock('@date'))
+
+      console.log(Mock.mock('@cname'))
+
+      // 输出结果
+      document.body.innerHTML +=
+        '<pre>' + JSON.stringify(data, null, 4) + '</pre>'
+    </script>
+  </body>
+</html>

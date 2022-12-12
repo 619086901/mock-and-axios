@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../Axios.js/axios.min.js"></script>
+  </head>
+  <body>
+    <script>
+      const instance = axios.create({
+        baseURL: 'https://fjfdraw.cf/json/json.json',
+        timeout: 5000,
+        method: 'get',
+        params: { name: 'fan' }
+      })
+
+      //拦截器
+      //在请求或响应被 then 或 catch 处理前拦截它们。
+      //判断验证跳转
+
+      instance.interceptors.request.use(
+        //请求拦截
+        (config) => {
+          // 在发送请求之前做些什么
+          // console.log('加载中...')
+          // console.log('你的身份不对')
+          console.log('我是请求拦截', config) //修改一系列的东西
+          return config
+        },
+        (error) => {
+          // 对请求错误做些什么
+          return Promise.reject(error)
+        }
+      )
+
+      instance.interceptors.response.use(
+        (response) => {
+          // 对响应数据做点什么
+          console.log('我是响应拦截', response)
+          return response
+        }
+        //响应拦截
+      )
+
+      instance.get().then((response) => {
+        console.log('data', response.data)
+      })
+
+      // const getJSON = async () => {
+      //   try {
+      //     let paramHeaders = new Headers({
+      //       'Content-Type:': 'application/x-www-form-urlencoded;charset=UTF-8'
+      //     })
+      //     let response = await fetch('https://fjfdraw.cf/json/json.json', {
+      //       method: 'POST',
+      //       body: 'name=fan',
+      //       mode: 'no-cors',
+      //       headers: paramHeaders
+      //     })
+      //     const body = await response
+      //     console.log('fetchresponse', response)
+      //     // console.log('entries', ...response.headers.entries())
+      //     console.log('body', body)
+      //     return body
+      //   } catch (error) {
+      //     console.log(error)
+      //     return error
+      //   }
+      // }
+      // getJSON()
+    </script>
+  </body>
+</html>
